@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Content = () => {
+const Content = ({ text }: { text: string }) => {
 	return (
 		<ContextLayout>
-			<ContentTitle />
+			<ContentTitle>{text}</ContentTitle>
 		</ContextLayout>
 	);
 };
