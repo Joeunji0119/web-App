@@ -8,18 +8,20 @@ const variables = {
     align-items: ${align};
   `,
 
+	position: (position = 'fixed', top = 0, right = 0, bottom = 0, left = 0) => `
+	position: ${position};
+	top: ${top};
+	left: ${left};
+	bottom: ${bottom};
+	right: ${right};
+`,
+
 	absoluteCenter: css`
 		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	`,
-
-	fixedCenter: css`
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
 	`,
 };
 
