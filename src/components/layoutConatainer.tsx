@@ -7,8 +7,8 @@ const LayoutConatainer = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<Layout>
 			<Nav />
-			<main>{children}</main>
 			<BannerContainer />
+			<main>{children}</main>
 			<Footer />
 		</Layout>
 	);

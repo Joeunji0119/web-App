@@ -36,8 +36,8 @@ export default Nav;
 const NavLayout = styled.nav`
 	${({ theme }) => theme.variables.flex('row', ' flex-start', 'center')};
 	${({ theme }) => theme.variables.position('sticky', '0', '', '', '')};
-	height: 7%;
-	background: ${({ theme }) => theme.style.pink};
+	height: 6%;
+	background: ${({ theme }) => theme.style.pink1};
 	overflow-x: auto;
 	white-space: nowrap;
 	&::-webkit-scrollbar {
