@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { BsFillCapslockFill } from 'react-icons/bs';
 
-const Footer = () => {
+const Footer = ({ handleTopRef }) => {
 	return (
 		<FooterLayout>
-			<IconLayout>
+			<IconLayout onClick={handleTopRef}>
 				<BsFillCapslockFill />
 			</IconLayout>
 		</FooterLayout>

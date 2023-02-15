@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 import BannerContainer from './common/banner/bannerContainer';
 import Footer from './common/footer';
-import Nav from './common/nav';
+import Nav from './common/nav/nav';
+import useScrollToTop from './hooks/useScrollToTop';
 
 const LayoutConatainer = ({ children }: { children: React.ReactNode }) => {
+	const { topRef, handleTopRef } = useScrollToTop();
+
 	return (
-		<Layout>
+		<Layout ref={topRef}>
 			<Nav />
 			<BannerContainer />
 			<main>{children}</main>
-			<Footer />
+			<Footer handleTopRef={handleTopRef} />
 		</Layout>
 	);
 };

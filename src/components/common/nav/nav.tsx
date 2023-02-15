@@ -1,15 +1,17 @@
+import { convertIdToCatagoryName } from '@/src/constants/convert';
+import { NavProps } from '@/src/constants/types';
 import Router from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { CATAGORYS } from './CATAGORYS';
 
 const Nav = () => {
 	const [catagoryId, setCatagoryId] = useState<number>(1);
 
 	const handleRoute = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		setCatagoryId(Number(e.currentTarget.id));
-		e.currentTarget.id === '1'
-			? Router.push('/')
-			: Router.push(`hanteo/${e.currentTarget.id}`);
+		let Id = convertIdToCatagoryName(CATAGORYS, e.currentTarget.id);
+		e.currentTarget.id === '1' ? Router.push('/') : Router.push(`/${Id}`);
 	};
 
 	return (
@@ -38,6 +40,7 @@ const NavLayout = styled.nav`
 	${({ theme }) => theme.variables.position('sticky', '0', '', '', '')};
 	height: 6%;
 	background: ${({ theme }) => theme.style.pink1};
+	z-index: 30;
 	overflow-x: auto;
 	white-space: nowrap;
 	&::-webkit-scrollbar {
@@ -52,14 +55,5 @@ const Catagory = styled.div`
 	font-weight: 800;
 	color: ${({ buttonStyle }: { buttonStyle: boolean }) =>
 		buttonStyle ? 'white' : 'black'};
+	cursor: pointer;
 `;
-
-const CATAGORYS = [
-	{ id: 1, title: '차트' },
-	{ id: 2, title: 'Whook' },
-	{ id: 3, title: '이벤트' },
-	{ id: 4, title: '뉴스' },
-	{ id: 5, title: '스토어' },
-	{ id: 6, title: '충전소' },
-	{ id: 7, title: '고객사항' },
-];
