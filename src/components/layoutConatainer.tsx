@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import BannerContainer from './common/banner/bannerContainer';
-import Footer from './common/footer';
+import Footer from './common/footer/footer';
 import Nav from './common/nav/nav';
 import useScrollToTop from './hooks/useScrollToTop';
 

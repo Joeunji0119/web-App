@@ -1,11 +1,5 @@
+import { BannerDataProps } from '@/src/constants/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-export interface BannerDataProps {
-	id: number;
-	thumbnail: string;
-	date: string;
-	link: string;
-}
 
 const Datas = [
 	{

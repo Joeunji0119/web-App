@@ -1,26 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
+import * as S from './style';
 
 const Content = ({ text }: { text: string }) => {
 	return (
-		<ContextLayout>
-			<ContentTitle>{text}</ContentTitle>
-		</ContextLayout>
+		<S.ContextLayout>
+			<S.ContentTitle>{text}</S.ContentTitle>
+		</S.ContextLayout>
 	);
 };
 
 export default Content;
-
-const ContextLayout = styled.div`
-	height: 40px;
-	background: white;
-	border-radius: 5px;
-	margin-top: 15px;
-`;
-
-const ContentTitle = styled.div`
-	width: 50px;
-	height: 100%;
-	background: ${({ theme }) => theme.style.grey4};
-	border-radius: 5px;
-`;
