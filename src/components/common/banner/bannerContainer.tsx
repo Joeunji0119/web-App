@@ -1,88 +1,99 @@
+import { BannerDataProps } from '@/src/pages/api/bannerData';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import styled from 'styled-components';
 import { clearInterval } from 'timers';
 import Banner from './banner';
 
-const items = [
-	{
-		id: 1,
-		title: '[M COUNTDOWN] 10월 1주차 엠카',
-		thumbnail:
-			'https://mblogthumb-phinf.pstatic.net/MjAxODAzMzFfMTUg/MDAxNTIyNDg4NDQ1ODAx.SykBPNfjfWsBXyo87j56KVJp_qiaLuyUUOJQjcKRotwg.DXrnutpLdfHr_ly8rh5Ne3xEooJbmBEdqegntXo_7i0g.JPEG.myrikason/KakaoTalk_Moim_5qpBqAjsVPmB3swqW7wgUdr3kBGruh.jpg?type=w800',
-		date: '2020.02.09 - 2020.04.08 17:00 (KST)',
-		link: 'http://hanteoglobal.com/hanteoglobal-service/',
-	},
-	{
-		id: 2,
-		title: '[M COUNTDOWN] 10월 2주차 엠카',
-		thumbnail:
-			'https://mblogthumb-phinf.pstatic.net/MjAxODAzMzFfMTUg/MDAxNTIyNDg4NDQ1ODAx.SykBPNfjfWsBXyo87j56KVJp_qiaLuyUUOJQjcKRotwg.DXrnutpLdfHr_ly8rh5Ne3xEooJbmBEdqegntXo_7i0g.JPEG.myrikason/KakaoTalk_Moim_5qpBqAjsVPmB3swqW7wgUdr3kBGruh.jpg?type=w800',
-		date: '2020.02.09 - 2020.04.08 17:00 (KST)',
-		link: 'http://hanteoglobal.com/',
-	},
-	{
-		id: 3,
-		title: '[M COUNTDOWN] 10월 3주차 엠카',
-		thumbnail:
-			'https://mblogthumb-phinf.pstatic.net/MjAxODAzMzFfMTUg/MDAxNTIyNDg4NDQ1ODAx.SykBPNfjfWsBXyo87j56KVJp_qiaLuyUUOJQjcKRotwg.DXrnutpLdfHr_ly8rh5Ne3xEooJbmBEdqegntXo_7i0g.JPEG.myrikason/KakaoTalk_Moim_5qpBqAjsVPmB3swqW7wgUdr3kBGruh.jpg?type=w800',
-		date: '2020.02.09 - 2020.04.08 17:00 (KST)',
-		link: 'http://hanteoglobal.com/%ea%b0%80%ec%b9%98%ec%8b%a4%ed%98%84/',
-	},
-];
+export interface isLastActiveIndexProps {
+	isLastActiveIndex: boolean;
+}
+
+export interface displayNoneProps {
+	displayNone: boolean;
+}
 
 const BannerContainer = () => {
-	const [activeIndex, setActiveIndex] = useState(1);
+	const [activeIndex, setActiveIndex] = useState(2);
+	const [items, setItems] = useState<BannerDataProps[]>();
 	const bannerRef = useRef<HTMLDivElement>(null);
 	const widthRef = useRef<HTMLDivElement>(null);
+	const API = `http://localhost:3333/api/bannerData`;
 
 	const handleRadio = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
 		setActiveIndex(Number(e.currentTarget.id));
 	};
 
+	const convertBannerItem = items => {
+		items.push(items[0]);
+		items.push(items[1]);
+		items.unshift(items[items.length - 3]);
+		const convertItems = items.map((item, idx) => {
+			return { ...item, id: idx + 1 };
+		});
+
+		return convertItems;
+	};
+
+	console.log(items);
+	useEffect(() => {
+		axios
+			.get(API)
+			.then(res => setItems(convertBannerItem(res.data)))
+			.catch(err => console.log(err));
+	}, []);
+
 	useEffect(() => {
 		let imgWidth = widthRef.current.offsetWidth;
-		let moveX = (activeIndex - 1) * imgWidth * 0.8;
+		let moveX = (activeIndex - 1) * imgWidth * 0.86;
 
 		bannerRef.current.style.transform = `translateX(-${moveX}px`;
 
-		if (activeIndex > items.length) {
-			setActiveIndex(prev => prev - items.length);
+		if (activeIndex > items?.length - 1) {
+			setActiveIndex(prev => (prev = 2));
 		}
 	}, [activeIndex]);
 
 	useEffect(() => {
 		setInterval(() => {
 			setActiveIndex(prev => prev + 1);
-		}, 4000);
+		}, 3000);
 		return () => clearInterval();
 	}, []);
 
+	const isLastActiveIndex = activeIndex === 2;
+
+	console.log(isLastActiveIndex);
+	console.log('엥', activeIndex);
 	return (
 		<BannerContainerLayout>
 			<BannersLayout ref={widthRef}>
-				<Banners ref={bannerRef}>
-					{items.map(item => (
-						<Banner key={item.id} item={item} />
+				<Banners isLastActiveIndex={isLastActiveIndex} ref={bannerRef}>
+					{items?.map((item, idx) => (
+						<Banner key={idx} item={item} />
 					))}
 				</Banners>
 			</BannersLayout>
-			<BannerRadio>
-				{items.map(({ id }) => {
+			<BannerRadioArea>
+				{items?.map(({ id }) => {
 					const isChecked = id === activeIndex;
+					const displayNone =
+						id === 1 || id === items.length || id === items.length - 1;
 					return (
-						<input
-							readOnly
-							key={id}
+						<Radio
 							type='radio'
-							id={String(id)}
 							name='contact'
+							readOnly
+							id={String(id)}
+							key={id}
 							onClick={e => handleRadio(e)}
 							checked={isChecked ? true : false}
+							displayNone={displayNone}
 						/>
 					);
 				})}
-			</BannerRadio>
+			</BannerRadioArea>
 		</BannerContainerLayout>
 	);
 };
@@ -106,15 +117,22 @@ const BannersLayout = styled.div`
 	min-height: 24vh;
 `;
 
-const Banners = styled.div`
+const Banners = styled.div<isLastActiveIndexProps>`
 	display: flex;
-	width: 100%;
+	width: 100vw;
 	z-index: 3;
-	transition: all ease-in 3s 0s;
+	transition: ${({ isLastActiveIndex }) =>
+		isLastActiveIndex ? 'none' : 'all ease-in 0.7s .0s'};
 `;
 
-const BannerRadio = styled.div`
+const BannerRadioArea = styled.div`
 	${({ theme }) => theme.variables.flex('row', 'center', 'center')};
 	height: 2%;
 	padding: 2%;
+`;
+
+const Radio = styled.input<displayNoneProps>`
+	height: 10px;
+	display: ${({ displayNone }) => (displayNone ? 'none' : '')};
+	margin: 3px;
 `;

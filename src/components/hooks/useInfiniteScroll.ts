@@ -1,4 +1,4 @@
-import { DataProps } from '@/src/pages/api/mock';
+import { DataProps } from '@/src/pages/api/contentData';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
@@ -6,7 +6,7 @@ export const useInfiniteScroll = () => {
 	const [contentList, setContentList] = useState<DataProps[]>([]);
 	const refObserver = useRef<HTMLDivElement>(null);
 
-	const API = `http://localhost:3333/api/mock`;
+	const API = `http://localhost:3333/api/contentData`;
 
 	useEffect(() => {
 		const option = {
