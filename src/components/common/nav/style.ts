@@ -11,6 +11,7 @@ export const NavLayout = styled.nav`
 	&::-webkit-scrollbar {
 		display: none;
 	}
+	scroll-snap-type: x mandatory;
 `;
 
 export const Catagory = styled.div`
@@ -21,4 +22,5 @@ export const Catagory = styled.div`
 	color: ${({ buttonStyle }: { buttonStyle: boolean }) =>
 		buttonStyle ? 'white' : 'black'};
 	cursor: pointer;
+	scroll-snap-align: start;
 `;

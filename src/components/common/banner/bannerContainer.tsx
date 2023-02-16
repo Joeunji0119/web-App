@@ -1,5 +1,4 @@
 import React from 'react';
-
 import useInfiniteBanner from '../../hooks/useInfiniteBanner';
 import Banner from './banner';
 import BannerRadio from './bannerRadio';

@@ -2,13 +2,13 @@ import { convertBannerItem } from '@/src/constants/convert';
 import { BannerDataProps } from '@/src/constants/types';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+// import { getStaticProps } from '../common/banner/data';
 
 export const useInfiniteBanner = () => {
 	const [activeIndex, setActiveIndex] = useState(2);
 	const [items, setItems] = useState<BannerDataProps[]>();
 	const bannerRef = useRef<HTMLDivElement>(null);
 	const widthRef = useRef<HTMLDivElement>(null);
-
 	const API = `http://localhost:3333/api/bannerData`;
 
 	useEffect(() => {
@@ -49,6 +49,7 @@ export const useInfiniteBanner = () => {
 		items,
 		handleRadio,
 		activeIndex,
+		setItems,
 	};
 };
 

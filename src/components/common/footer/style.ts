@@ -10,4 +10,10 @@ export const FooterLayout = styled.footer`
 
 export const IconLayout = styled.div`
 	font-size: 120%;
+	cursor: pointer;
+`;
+
+export const FooterText = styled.span`
+	font-size: 13px;
+	padding-left: 5px;
 `;

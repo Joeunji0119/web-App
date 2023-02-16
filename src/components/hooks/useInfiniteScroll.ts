@@ -1,9 +1,9 @@
-import { DataProps } from '@/src/pages/api/contentData';
-import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
+import { ContentDataProps } from '@/src/constants/types';
+import axios from 'axios';
 
 export const useInfiniteScroll = () => {
-	const [contentList, setContentList] = useState<DataProps[]>([]);
+	const [contentList, setContentList] = useState<ContentDataProps[]>([]);
 	const refObserver = useRef<HTMLDivElement>(null);
 
 	const API = `http://localhost:3333/api/contentData`;

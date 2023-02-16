@@ -1,17 +1,15 @@
-import Head from 'next/head';
+import React from 'react';
 import BannerContainer from '../components/common/banner/bannerContainer';
 import ContentList from '../components/contents/contentList';
 
-const Home = () => {
+const News = () => {
 	return (
 		<>
-			<Head>
-				<title>hanteo</title>
-			</Head>
+			<BannerContainer />
 			<BannerContainer />
 			<ContentList />
 		</>
 	);
 };
 
-export default Home;
+export default News;

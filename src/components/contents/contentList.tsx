@@ -1,4 +1,3 @@
-import React from 'react';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import Content from './content';
 import * as S from './style';

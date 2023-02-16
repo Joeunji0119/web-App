@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ContentListLayout = styled.section`
 	background: ${({ theme }) => theme.style.grey1};
 	height: 60%;
+	width: 100vw;
 	min-height: 60vh;
 	padding: 5% 4% 0 4%;
 `;
@@ -12,7 +13,7 @@ export const ContentsTitle = styled.div`
 `;
 
 export const ObserverDiv = styled.div`
-	height: 30vh;
+	height: 50vh;
 	width: 10vw;
 `;
 

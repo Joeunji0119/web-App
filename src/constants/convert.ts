@@ -13,7 +13,7 @@ export const convertBannerItem = (items: BannerDataProps[]) => {
 	items.push(items[0]);
 	items.push(items[1]);
 	items.unshift(items[items.length - 3]);
-	const convertItems = items.map((item, idx) => {
+	const convertItems = items?.map((item, idx) => {
 		return { ...item, id: idx + 1 };
 	});
 	return convertItems;
